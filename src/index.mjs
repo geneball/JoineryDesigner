@@ -1,5 +1,23 @@
 import "./styles.css";
 
+const grids = {
+  bot: [ [ 'VTLbot', 'HTbot', 'VTbot', 'HTbot', 'VTbot', 'HTRbot' ],
+        [ 'VLbot', 'Hbot', 'Vbot', 'Hbot', 'Vbot', 'HRbot' ],
+        [ 'HLbot', 'Vbot', 'Hbot', 'Vbot', 'Hbot', 'VRbot' ],
+        [ 'VLbot', 'Hbot', 'Vbot', 'Hbot', 'Vbot', 'HRbot' ],
+        [ 'HLbot', 'Vbot', 'Hbot', 'Vbot', 'Hbot', 'VRbot' ],
+        [ 'VBLbot', 'HBbot', 'VBbot', 'HBbot', 'VBbot', 'HBRbot' ]
+],
+
+Chk: []
+        }
+
+const squares = {
+  Hbot: 'LRrr4rr4ll4ll4rr4BTrr66',
+  Vbot: 'BTrr4rr4LTRBr4r4rLRrr66',
+  Fr: 'LTRBr4r4r4',
+}
+
 const ePath = document.getElementById("path")
 
 const canvas = document.getElementById("canv")
