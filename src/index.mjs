@@ -11,6 +11,7 @@ const grids = {
 
 All: [ [ 'bot', 'bot', 'H0', 'H0' ],
       [ 'D0', 'D0', 'Q0', 'Q0' ]
+      ]
         }
 
 const squares = {
