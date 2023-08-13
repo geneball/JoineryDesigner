@@ -1,23 +1,29 @@
 import "./styles.css";
 
 const grids = {
-  bot: [ [ 'VTLbot', 'HTbot', 'VTbot', 'HTbot', 'VTbot', 'HTRbot' ],
-        [ 'VLbot', 'Hbot', 'Vbot', 'Hbot', 'Vbot', 'HRbot' ],
-        [ 'HLbot', 'Vbot', 'Hbot', 'Vbot', 'Hbot', 'VRbot' ],
-        [ 'VLbot', 'Hbot', 'Vbot', 'Hbot', 'Vbot', 'HRbot' ],
-        [ 'HLbot', 'Vbot', 'Hbot', 'Vbot', 'Hbot', 'VRbot' ],
-        [ 'VBLbot', 'HBbot', 'VBbot', 'HBbot', 'VBbot', 'HBRbot' ]
-],
+  bot66: [ [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ],
+         [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ],
+         [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ],
+         [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ],
+         [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ],
+         [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ]
+        ],
 
 Chk: []
         }
 
 const squares = {
-  Hbot: 'LRrr4rr4ll4ll4rr4BTrr66',
-  Vbot: 'BTrr4rr4LTRBr4r4rLRrr66',
-  Fr: 'LTRBr4r4r4',
-  FrChk: 'LTRBr3r3ll3rr3l3',
-  CDia: 'LTRBr4ll2rr2ll4'
+  bot: { TLtoTr: '4R4L4L4R4', TRtoBR: '4L4R4R4L4',
+         BRtoBL: '4R4L4L4R4', BLtoTL: '4L4R4R4L4'
+       },
+  H0:  { TLtoTr: 'm', TRtoBR: 'm',
+         BRtoBL: 'm', BLtoTL: 'R6LmL6' },
+  D0:  { TLtoTr: 'm', TRtoBR: 'm',
+         BRtoBL: 'm', BLtoTL: 'rmLlm' },
+  Q0:  { TLtoTR: 'm', TRtoBR: '6R6L6L6',
+         BRtoBL: 'm', BLtoTL: '6R6L6L6' },
+  edge: { TLtoTr: 'm', TRtoBR: 'm',
+          BRtoBL: 'm', BLtoTL: 'm' }
 }
 
 const ePath = document.getElementById("path")
@@ -25,18 +31,15 @@ const ePath = document.getElementById("path")
 const canvas = document.getElementById("canv")
 const ctx = canvas.getContext("2d")
 
-// Set line width
-ctx.lineWidth = 1
+
 
 const WD = 500, HT = 500
-const sN = 8, sE = 4, sS = 2, sW = 1
+
 const xStp = [ 1, 1, 0, -1, -1, -1, 0, 1 ]
 const yStp = [ 0, 1, 1, 1, 0, -1, -1, -1 ]
 
-var onEdge = { N: false, E: false, S: false, W: false }
 var eW = 20
 var xW = WD - 2 * eW, yH = HT - 2 * eW
-
 
 function addButtons( obj, fn ){
   for (let nm in obj ){
@@ -55,12 +58,9 @@ let sqbtns = document.getElementByID( 'sqbtns' )
 addButtons( sqbtns, squares, (s) => showSquare( s ))
 
 function clear(){
-  ctx.clearRect( eW,eW, xW,yH )
-
-  ctx.fillRect( eW, 0, xW,eW )  // top
-  ctx.fillRect( 0,eW, eW,yH )  // left
-  ctx.fillRect( eW+xW,eW,  eW,yH ) // right
-  ctx.fillRect( eW,eW+yH,  xW,eW ) // bottom
+  ctx.lineWidth = 1
+  
+  ctx.clearRect( 0,0, WD, HT )
 }
 function showGrid( gr ){
   let rows = gr.length, cols = gr[0].length
@@ -98,15 +98,8 @@ function showGrid( gr ){
   }
 }
 function showSquare( s ){
-  xW = WD - 2 * eW
-  yH = HT - 2 * eW
-  mL = yH > xW? xW : yH
-  sL = mL / 12
-  
-  draw( eW,eW,             0, p )
-  draw( eW+xW, eW,         2, p )
-  draw( eW+xW, eW+yH,      4, p )
-  draw( eW, eW+yH,         6, p )
+  let gr = [ [ s, s ]]
+  showGrid( gr )
 }
 function draw( x,y, dir, path ){
   ctx.beginPath();
@@ -131,17 +124,9 @@ function draw( x,y, dir, path ){
      y += yStep[dir] * f * sL 
      ctx.lineTo( x,y );
   }
-  ctx.closePath();
-  ctx.stroke();
-}
-
-function updPath( p ){
-   clear()
-
-  draw( eW,eW,                 0, p )
-  draw( eW+xW, eW,         2, p )
-  draw( eW+xW, eW+yH,  4, p )
-  draw( eW, eW+yH,          6, p )
+  ctx.stroke()
+  ctx.closePath()
+  ctx.fill()
 }
 
 
