@@ -1,5 +1,19 @@
 import "./styles.css";
 
+const squares = {
+  bot: { TLtoTR: '4R4L4L4R4', TRtoBR: '4L4R4R4L4',
+         BRtoBL: '4R4L4L4R4', BLtoTL: '4L4R4R4L4' },
+  H0:  { TLtoTR: 'm', TRtoBR: 'm',
+         BRtoBL: 'm', BLtoTL: 'R6LmL6' },
+  D0:  { TLtoTR: 'm', TRtoBR: 'm',
+         BRtoBL: 'm', BLtoTL: 'rmLlm' },
+  Q0:  { TLtoTR: 'm', TRtoBR: '6R6L6L6',
+         BRtoBL: 'm', BLtoTL: '6R6L6L6' },
+  Solid: { TLtoTR: 'm', TRtoBR: 'm',
+          BRtoBL: 'm', BLtoTL: 'm' }
+}
+var edge = squares.Solid
+
 const grids = {
   bot66: [ 
          [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ],
@@ -11,42 +25,10 @@ const grids = {
         ],
 
    all: [ [ 'bot', 'bot', 'H0', 'H0' ],
-          [ 'D0', 'D0', 'Q0', 'Q0' ]
+          [ 'D0', 'D0', 'Q0', 'Q0' ],
+          [ 'Solid', 'Solid', 'Solid', 'Solid' ]
         ]
 }
-
-const squares = {
-  bot: { TLtoTR: '4R4L4L4R4', TRtoBR: '4L4R4R4L4',
-         BRtoBL: '4R4L4L4R4', BLtoTL: '4L4R4R4L4' },
-  H0:  { TLtoTR: 'm', TRtoBR: 'm',
-         BRtoBL: 'm', BLtoTL: 'R6LmL6' },
-  D0:  { TLtoTR: 'm', TRtoBR: 'm',
-         BRtoBL: 'm', BLtoTL: 'rmLlm' },
-  Q0:  { TLtoTR: 'm', TRtoBR: '6R6L6L6',
-         BRtoBL: 'm', BLtoTL: '6R6L6L6' },
-  edge: { TLtoTR: 'm', TRtoBR: 'm',
-          BRtoBL: 'm', BLtoTL: 'm' }
-}
-var edge = squares.edge
-
-const ePaths = [ 
-  document.getElementById("path0"),
-  document.getElementById("path1"),
-  document.getElementById("path2"),
-  document.getElementById("path3")
-]
-
-const canvas = document.getElementById("canv")
-const ctx = canvas.getContext("2d")
-
-const WD = 500, HT = 500
-
-const xStp = [ 1, 1, 0, -1, -1, -1, 0, 1 ]
-const yStp = [ 0, 1, 1, 1, 0, -1, -1, -1 ]
-
-var eW = 20
-var xW = WD - 2 * eW, yH = HT - 2 * eW
-
 function addButtons( el, obj, fn ){
   for (let nm in obj ){
     el.insertAdjacentHTML( 'beforeend', `<button id='btn${nm}'>${nm}</button>` )
@@ -56,13 +38,6 @@ function addButtons( el, obj, fn ){
     b.addEventListener( 'click', fn.bind( obj[nm] ))
   }
 }
-
-let grbtns = document.getElementByID( 'grBtns' )
-addButtons( grbtns, grids, (s) => showGrid( s ) )
-
-let sqbtns = document.getElementByID( 'sqBtns' )
-addButtons( sqbtns, squares, (s) => showSquare( s ))
-
 function clear(){
   ctx.lineWidth = 1
   ctx.fillStyle = '8080f0'
@@ -70,16 +45,14 @@ function clear(){
   ctx.fillRect( 0,0, WD, HT )
   ctx.strokeRect( 0,0, WD, HT )
 }
-clear()
-
 function showGrid( gr ){
   let rows = gr.length, cols = gr[0].length
-  xW = (WD-2*eW) / cols
-  yH = (HT-2*eW) / rows
+  xW = WD / cols
+  yH = HT / rows
   mL = yH > xW? xW : yH
   sL = mL / 12
   
-  let xTL = eW, yTL = eW
+  let xTL = 0, yTL = 0
   let vertRw = true
   for( let r=0; r<rows; r++ ){
     let vert = vertRw
@@ -91,16 +64,17 @@ function showGrid( gr ){
       let w = c==0? edge : gr[r][c-1]
       let e = c==cols-1? edge : gr[r][c+1]
       
-      if (!vert){
-        draw( xTL+mL,yTL,    0, n.BRtoBL )
-        draw( xTL+mL,yTL,    2, ctr.BLtoTL ) 
-        draw( xTL,   yTL+mL, 4, s.TLtoTR )
-        draw( xTL,yTL+mL,    6, ctr.BLtoTL )  
-      } else {
+      if ( vert ){
+        
         draw( xTL,   yTL,    0, ctr.TLtoTR )
         draw( xTL+mL,yTL+mL, 2, e.BLtoTL ) 
         draw( xTL+mL,yTL+mL, 4, ctr.BRtoBL )
         draw( xTL,   yTL,    6, w.TRtoBR )
+      } else {
+        draw( xTL+mL,yTL,    0, n.BRtoBL )
+        draw( xTL+mL,yTL,    2, ctr.BLtoTL ) 
+        draw( xTL,   yTL+mL, 4, s.TLtoTR )
+        draw( xTL,yTL+mL,    6, ctr.BLtoTL )  
       }
       vert = !vert
     }
@@ -142,7 +116,6 @@ function draw( x,y, dir, path ){
   ctx.closePath()
   ctx.fill()
 }
-
 function updPaths(){
   let test =  { 
     TLtoTR: ePaths[0].value, 
@@ -161,7 +134,30 @@ function updPaths(){
     test.BLtoTL = test.TRtoBR
   showSquare( test )
 }
-  
+
+const canvas = document.getElementById("canv")
+const ctx = canvas.getContext("2d")
+
+const WD = 500, HT = 500
+
+const xStp = [ 1, 1, 0, -1, -1, -1, 0, 1 ]
+const yStp = [ 0, 1, 1, 1, 0, -1, -1, -1 ]
+
+var eW = 20, xW = WD, yH = HT 
+clear()
+
+let grbtns = document.getElementByID( 'grBtns' )
+addButtons( grbtns, grids, (s) => showGrid( s ) )
+
+let sqbtns = document.getElementByID( 'sqBtns' )
+addButtons( sqbtns, squares, (s) => showSquare( s ))
+
+const ePaths = [           
+  document.getElementById("path0"),
+  document.getElementById("path1"),
+  document.getElementById("path2"),
+  document.getElementById("path3")
+]
 for (let e of ePaths )
   e.addEventListener( 'change', updPaths )
-            
+ 
