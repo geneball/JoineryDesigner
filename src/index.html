@@ -6,17 +6,22 @@
   </head>
 
   <body>
-    <div id="app">
-      Joinery <br>
-      ----
- 
-      <input id='path' type='text'>
-      
-
-    </div>
+     <h>Joinery</h> 
+<div> 
+  <label> Grid: <span id='grBtns'> </span></label>
+</div>
+<div>  
+  <label> Squares: <span id='sqBtns'> </span></label>
+</div>
+<div>  
+  Paths: 
+  <label>  TLtoTR:  <input id='path0' type='text'> </label>
+  <label>  TRtoBR:  <input id='path1' type='text'> </label>
+  <label>  BRtoBL:  <input id='path2' type='text'> </label>
+  <label>  BLtoTL:  <input id='path3' type='text'> </label>
+ </div>
     
-    
-    <canvas id="canv" width="500" height="500"></canvas>
+ <canvas id="canv" width="500" height="500"></canvas>
     
     <script src="./index.mjs" type="module"></script>
   </body>
