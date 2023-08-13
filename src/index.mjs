@@ -65,9 +65,13 @@ addButtons( sqbtns, squares, (s) => showSquare( s ))
 
 function clear(){
   ctx.lineWidth = 1
+  ctx.fillStyle = '8080f0'
  
-  ctx.clearRect( 0,0, WD, HT )
+  ctx.fillRect( 0,0, WD, HT )
+  ctx.strokeRect( 0,0, WD, HT )
 }
+clear()
+
 function showGrid( gr ){
   let rows = gr.length, cols = gr[0].length
   xW = (WD-2*eW) / cols
