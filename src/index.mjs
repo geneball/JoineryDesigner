@@ -49,7 +49,7 @@ var xW = WD - 2 * eW, yH = HT - 2 * eW
 
 function addButtons( el, obj, fn ){
   for (let nm in obj ){
-    el.innerHtml += `<button id='btn${nm}'>${nm}</button>`
+    el.insertAdjacentHTML( 'beforeend', `<button id='btn${nm}'>${nm}</button>` )
   }
   for ( nm in obj ){
     let b = document.getElementByID( nm )
