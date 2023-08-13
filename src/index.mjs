@@ -9,7 +9,8 @@ const grids = {
          [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ]
         ],
 
-Chk: []
+All: [ [ 'bot', 'bot', 'H0', 'H0' ],
+      [ 'D0', 'D0', 'Q0', 'Q0' ]
         }
 
 const squares = {
@@ -26,7 +27,14 @@ const squares = {
           BRtoBL: 'm', BLtoTL: 'm' }
 }
 
-const ePath = document.getElementById("path")
+const ePaths = [ 
+  document.getElementById("path0"),
+  document.getElementById("path1"),
+  document.getElementById("path2"),
+  document.getElementById("path3")
+]
+
+
 
 const canvas = document.getElementById("canv")
 const ctx = canvas.getContext("2d")
@@ -51,11 +59,11 @@ function addButtons( obj, fn ){
   }
 }
 
-let grbtns = document.getElementByID( 'grbtns' )
-addButtons( grbtns, grids, (s) => showGrid(s) )
+let grbtns = document.getElementByID( 'grBtns' )
+addButtons( grbtns, grids, (s) => showGrid( grids[s] ) )
 
-let sqbtns = document.getElementByID( 'sqbtns' )
-addButtons( sqbtns, squares, (s) => showSquare( s ))
+let sqbtns = document.getElementByID( 'sqBtns' )
+addButtons( sqbtns, squares, (s) => showSquare( squares[s] ))
 
 function clear(){
   ctx.lineWidth = 1
@@ -129,7 +137,25 @@ function draw( x,y, dir, path ){
   ctx.fill()
 }
 
-
-ePath.addEventListener( 'change',
-            (evt) => updPath( ePath.value )
-    )
+function updPaths(){
+  let test =  { 
+    TLtoTR: ePaths[0].value, 
+    TRtoBR: ePaths[1].value,
+    BRtoBL: ePaths[2].value,
+    BLtoTL: ePaths[3].value
+  }
+  
+  if ( test.TRtoBR.length ==0 )
+    test.TRtoBR = test.TLtoTR
+  
+  if ( test.BRtoBL.length ==0 )
+    test.BRtoBL = test.TLtoTR
+  
+  if ( test.BLtoTL.length ==0 )
+    test.BLtoTL = test.TRtoBR
+  showSquare( test )
+}
+  
+for (let e of ePaths )
+  e.addEventListener( 'change', updPaths )
+            
