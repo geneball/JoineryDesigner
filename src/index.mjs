@@ -1,16 +1,31 @@
 import "./styles.css";
 
 const squares = {
-  bot: { TLtoTR: '4R4L4L4R4', TRtoBR: '4L4R4R4L4',
-         BRtoBL: '4R4L4L4R4', BLtoTL: '4L4R4R4L4' },
-  H0:  { TLtoTR: 'm', TRtoBR: 'm',
-         BRtoBL: 'm', BLtoTL: 'R6LmL6' },
-  D0:  { TLtoTR: 'm', TRtoBR: 'm',
-         BRtoBL: 'm', BLtoTL: 'rmLlm' },
-  Q0:  { TLtoTR: 'm', TRtoBR: '6R6L6L6',
-         BRtoBL: 'm', BLtoTL: '6R6L6L6' },
-  Solid: { TLtoTR: 'm', TRtoBR: 'm',
-          BRtoBL: 'm', BLtoTL: 'm' }
+  bot: {  VL: '4Ŕ4L4L4R4',  VR: '4R4L4L4R4',
+          HT: '4R4L4L4R4',  HB: '4R4L4L4R4'
+       },
+  H0:  {  VL: 'R6LmL6', VR:'m',
+          HT: 'L6R6L6L6', HB: 'R6L6R6R6'
+       },
+  H1:  {  VL: 'm',  VR:'R6LmL6',
+          HB: 'L6R6L6L6', HT: 'R6L6R6R6'
+       },
+  D0:  {  VL: 'rmLlm',  VR: 'm',
+          HT: 'm',  HB: 'RmLlm'
+       },
+  D1:  {  VR: 'rmLlm',  VL: 'm',
+          HB: 'm',  HT: 'RmLlm'
+       },
+  Q0:  {  VL: '6R6L6L6',  VR: '6R6L6L6'
+          HT: '6R6L6L6',  HB: '6R6L6L6' 
+       },
+  Q1:  {  VR: '6R6L6L6',  VL: '6R6L6L6'
+          HB: '6R6L6L6',  HT: '6R6L6L6' 
+       },
+ 
+  Solid: { VL: 'm',  VR: 'm',
+           HT: 'm',  HB: 'm'
+         }
 }
 var edge = squares.Solid
 
@@ -64,17 +79,12 @@ function showGrid( gr ){
       let w = c==0? edge : gr[r][c-1]
       let e = c==cols-1? edge : gr[r][c+1]
       
-      if ( vert ){
-        
-        draw( xTL,   yTL,    0, ctr.TLtoTR )
-        draw( xTL+mL,yTL+mL, 2, e.BLtoTL ) 
-        draw( xTL+mL,yTL+mL, 4, ctr.BRtoBL )
-        draw( xTL,   yTL,    6, w.TRtoBR )
-      } else {
-        draw( xTL+mL,yTL,    0, n.BRtoBL )
-        draw( xTL+mL,yTL,    2, ctr.BLtoTL ) 
-        draw( xTL,   yTL+mL, 4, s.TLtoTR )
-        draw( xTL,yTL+mL,    6, ctr.BLtoTL )  
+      if ( vert ){ // cuts from L & R
+        draw( xTL+mL,yTL,    2, e.VR )
+        draw( xTL,   yTL+mL, 6, w.VL )
+      } else { // cuts from T & B
+        draw( xTL   ,yTL,    0, n.HT ) 
+        draw( xTL,   yTL+mL, 4, s.HB )  
       }
       vert = !vert
     }
