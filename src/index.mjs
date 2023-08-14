@@ -16,12 +16,16 @@ const squares = {
   D1:  {  VR: 'rmLlm',  VL: 'm',
           HB: 'm',  HT: 'RmLlm'
        },
-  Q0:  {  VL: '6R6L6L6',  VR: '6R6L6L6'
+  Q0:  {  VL: '6R6L6L6',  VR: '6R6L6L6',
           HT: '6R6L6L6',  HB: '6R6L6L6' 
        },
-  Q1:  {  VR: '6R6L6L6',  VL: '6R6L6L6'
+  Q1:  {  VR: '6R6L6L6',  VL: '6R6L6L6',
           HB: '6R6L6L6',  HT: '6R6L6L6' 
        },
+ 
+  S2: { VL: 'm',  VR: 'm',
+           HT: 'm',  HB: 'm'
+         },
  
   Solid: { VL: 'm',  VR: 'm',
            HT: 'm',  HB: 'm'
