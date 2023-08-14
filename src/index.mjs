@@ -118,8 +118,8 @@ function draw( x,y, dir, path ){
      case '6':  f = 6; break
      case 'm': f = 12; break
      }
-     x += xStep[dir] * f * sL
-     y += yStep[dir] * f * sL 
+     x += xStp[dir] * f * sL
+     y += yStp[dir] * f * sL 
      ctx.lineTo( x,y );
   }
   ctx.stroke()
@@ -128,20 +128,20 @@ function draw( x,y, dir, path ){
 }
 function updPaths(){
   let test =  { 
-    TLtoTR: ePaths[0].value, 
-    TRtoBR: ePaths[1].value,
-    BRtoBL: ePaths[2].value,
-    BLtoTL: ePaths[3].value
+    VL: ePaths[0].value, 
+    VR: ePaths[1].value,
+    HT: ePaths[2].value,
+    HB: ePaths[3].value
   }
   
-  if ( test.TRtoBR.length ==0 )
-    test.TRtoBR = test.TLtoTR
+  if ( test.VR.length ==0 )
+    test.VR = test.VLR
   
-  if ( test.BRtoBL.length ==0 )
-    test.BRtoBL = test.TLtoTR
+  if ( test.HT.length ==0 )
+    test.HT = test.VL
   
-  if ( test.BLtoTL.length ==0 )
-    test.BLtoTL = test.TRtoBR
+  if ( test.HB.length ==0 )
+    test.HB = test.HT
   showSquare( test )
 }
 
