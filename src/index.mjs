@@ -13,8 +13,14 @@ const squares = {
   D0:  {  VL: 'rmLlm',  VR: 'm',
           HT: 'm',  HB: 'RmLlm'
        },
-  D1:  {  VR: 'rmLlm',  VL: 'm',
-          HB: 'm',  HT: 'RmLlm'
+  D1:  {  VL: 'm',  VR: 'mRrm',  
+          HT: 'm',  HB: 'rmRm'
+       },
+  D2:  {  VL: 'm',  VR: 'lmLlm',
+          HT: 'Rm', HB: 'mRrm',  
+       },
+  D3:  {  VL: 'mLlm',  VR: 'm',
+          HT: 'rmLlm',  HB: 'm'
        },
   Q0:  {  VL: '6R6L6L6',  VR: '6R6L6L6',
           HT: '6R6L6L6',  HB: '6R6L6L6' 
@@ -22,8 +28,19 @@ const squares = {
   Q1:  {  VR: '6R6L6L6',  VL: '6R6L6L6',
           HB: '6R6L6L6',  HT: '6R6L6L6' 
        },
+  DS0: {  VL: 'R6l6LlmR6', VR: 'R6l6LlmR6',
+          HT: '6Rr6l6', HB: '6Rr6l6'
+       },
+
+  DS1: {  VL: 'L6RmLl6l6', VR: '6RmLl6l6',
+          HT: '6Rr6l6', HB: '6Rr6l6'
+       },
+
+
+
+  
  
-  S2: { VL: 'm',  VR: 'm',
+  CBCD0: { VL: 'm',  VR: 'm',
            HT: 'm',  HB: 'm'
          },
  
@@ -43,6 +60,12 @@ const grids = {
          [ 'bot', 'bot', 'bot', 'bot', 'bot', 'bot' ]
         ],
 
+   gr1: [ 
+          [ 'CBCD0', 'DS0', 'DS1', 'CBCD1' ],
+          [ 'DS2', 'D2', 'D3', 'DS1' ],
+          [ 'DS1', 'D1', 'D0', 'DS0' ],
+          [ 'CBCD3', 'DS1', 'DS0', 'CBCD2' ]
+        ],
    all: [ [ 'bot', 'bot', 'H0', 'H0' ],
           [ 'D0', 'D0', 'Q0', 'Q0' ],
           [ 'Solid', 'Solid', 'Solid', 'Solid' ]
