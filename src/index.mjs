@@ -88,9 +88,10 @@ function addButtons( el, obj, fn ){
     b.addEventListener( 'click', fn.bind( obj[nm] ))
   }
 }
-function clear(){
+function clear(clr){
   ctx.lineWidth = 1
-  ctx.fillStyle = '8080f0'
+if (clr == undefined ) clr = 'brown'
+  ctx.fillStyle = clr
  
   ctx.fillRect( 0,0, WD, HT )
   ctx.strokeRect( 0,0, WD, HT )
@@ -191,10 +192,10 @@ const yStp = [ 0, 1, 1, 1, 0, -1, -1, -1 ]
 var eW = 20, xW = WD, yH = HT 
 clear()
 
-let grbtns = document.getElementByID( 'grBtns' )
+let grbtns = document.getElementById( 'grBtns' )
 addButtons( grbtns, grids, (s) => showGrid( s ) )
 
-let sqbtns = document.getElementByID( 'sqBtns' )
+let sqbtns = document.getElementById( 'sqBtns' )
 addButtons( sqbtns, squares, (s) => showSquare( s ))
 
 const ePaths = [           
