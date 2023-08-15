@@ -84,13 +84,15 @@ function addButtons( el, obj, fn ){
     el.insertAdjacentHTML( 'beforeend', `<button id='btn${nm}'>${nm}</button>` )
   }
   for ( nm in obj ){
-    let b = document.getElementByID( nm )
+    let b = document.getElementById( nm )
     b.addEventListener( 'click', fn.bind( obj[nm] ))
   }
+clear('blue')
 }
 function clear(clr){
   ctx.lineWidth = 1
-if (clr == undefined ) clr = 'brown'
+  if (clr == undefined ) 
+     clr = 'gray'
   ctx.fillStyle = clr
  
   ctx.fillRect( 0,0, WD, HT )
