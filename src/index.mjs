@@ -35,15 +35,23 @@ const squares = {
   DS1: {  VL: 'L6RmLl6l6', VR: '6RmLl6l6',
           HT: '6Rr6l6', HB: '6Rr6l6'
        },
-
-
-
+ Plus: {  VL: 'R4L4L4R4R4L4L4',  VR: 'R4L4L4R4R4L4L4',
+          HT: '4R4R4L4L4R4R4',  HB: '4R4R4L4L4R4R4'
+       },
   
  
-  CBCD0: { VL: 'm',  VR: 'm',
-           HT: 'm',  HB: 'm'
+  CD0: { VL: 'm',  VR: '6r6Ll6',
+           HT: 'm',  HB: 'RR6Ll6r6'
          },
- 
+  CD1: { VL: 'R6Ll6r6',  VR: 'm',
+           HT: 'R6l6Rr6',  HB: 'm'
+         },
+  CD2: { VL: '6r6Ll6',  VR: 'm',
+           HT: '6Rr6l6',  HB: 'm'
+         },
+  CD3: { VL: 'm',  VR: 'R6Ll6r6',
+           HT: '6r6Ll6',  HB: 'm'
+         },
   Solid: { VL: 'm',  VR: 'm',
            HT: 'm',  HB: 'm'
          }
@@ -61,10 +69,10 @@ const grids = {
         ],
 
    gr1: [ 
-          [ 'CBCD0', 'DS0', 'DS1', 'CBCD1' ],
+          [ 'CD0', 'DS0', 'DS1', 'CD1' ],
           [ 'DS2', 'D2', 'D3', 'DS1' ],
           [ 'DS1', 'D1', 'D0', 'DS0' ],
-          [ 'CBCD3', 'DS1', 'DS0', 'CBCD2' ]
+          [ 'CD3', 'DS1', 'DS0', 'CD2' ]
         ],
    all: [ [ 'bot', 'bot', 'H0', 'H0' ],
           [ 'D0', 'D0', 'Q0', 'Q0' ],
