@@ -84,10 +84,10 @@ function addButtons( el, obj, fn ){
     el.insertAdjacentHTML( 'beforeend', `<button id='btn${nm}'>${nm}</button>` )
   }
   for ( nm in obj ){
-    let b = document.getElementById( nm )
+    let b = document.getElementById( 'btn'+nm )
     b.addEventListener( 'click', fn.bind( obj[nm] ))
   }
-clear('blue')
+
 }
 function clear(clr){
   ctx.lineWidth = 1
@@ -105,6 +105,7 @@ function showGrid( gr ){
   mL = yH > xW? xW : yH
   sL = mL / 12
   
+  clear('blue')
   let xTL = 0, yTL = 0
   let vertRw = true
   for( let r=0; r<rows; r++ ){
