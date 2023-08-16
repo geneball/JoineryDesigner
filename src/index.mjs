@@ -119,14 +119,17 @@ function showGrid( gr ){
       let e = c==cols-1? edge : gr[r][c+1]
       
       if ( vert ){ // cuts from L & R
-        draw( xTL+mL,yTL,    2, e.VR )
-        draw( xTL,   yTL+mL, 6, w.VL )
+        draw( xTL+mL,yTL,    2, e.VL )
+        draw( xTL,   yTL+mL, 6, w.VR )
       } else { // cuts from T & B
-        draw( xTL   ,yTL,    0, n.HT ) 
-        draw( xTL,   yTL+mL, 4, s.HB )  
+        draw( xTL+mL,yT,     0, n.HB ) 
+        draw( xTL,   yTL+mL, 4, s.HT )  
       }
       vert = !vert
+      xTL += mL
     }
+    yTL += mL
+    xTL = 0
     vertRw =!vertRw
   }
 }
@@ -145,9 +148,9 @@ function draw( x,y, dir, path ){
   for( let m of Array(path)){
     switch (m){
      case 'r': dir += 1; break
-     case 'l': dir += 1; break
-     case 'R': dir += 1; break
-     case 'L': dir += 1; break 
+     case 'l': dir -= 1; break
+     case 'R': dir += 2; break
+     case 'L': dir -= 2; break 
 
      case '1': f = 1; break 
      case '2': f = 2; break 
@@ -155,6 +158,8 @@ function draw( x,y, dir, path ){
      case '4':  f = 4; break
      case '5':  f = 5; break
      case '6':  f = 6; break
+     case '7':  f = 7; break
+     case '8':  f = 8; break 
      case 'm': f = 12; break
      }
      x += xStp[dir] * f * sL
